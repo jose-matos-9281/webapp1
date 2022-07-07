@@ -5,6 +5,21 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 
+def num(data,col):
+    '''
+    limpia la data numerica que tiene un caracter extra '-1
+    '''
+    for i in col:
+        data[i]= data[i].str.replace("'","").astype("int32")
+    return data
+
+hosp = pd.read_csv('data/hospitalizacion.csv')
+data = pd.read_csv('data/data.csv')
+
+data['fecha']= pd.to_datetime(data['fecha'])
+data = num(data,['Confirmados', 'Fallecidos', 'Muestras','Recuperados'])
+hosp['fecha']= pd.to_datetime(hosp['fecha'])
+
 
 serie = [ 'Confirmados', 'Fallecidos', 'Muestras', 'Recuperados']
 provincias = ['Azua', 'Baoruco', 'Barahona', 'Dajabón', 'Distrito Nacional', 'Duarte',
